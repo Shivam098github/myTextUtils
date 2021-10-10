@@ -7,9 +7,18 @@ export default function TextForm(props) {
     const [spaces, setspaces] = useState(0)
     // setText('No input');
     const handleUpClick=()=>{
-        console.log(text);
+        // console.log(text);
+        props.settText("Converted to Upper Case")
+        props.notify()
         let newText=text.toUpperCase();
         setText(newText);
+        // props.showalert("converted to uppercase","danger")
+        // props.notify
+    }
+    const handleLoClick=()=>{
+        let newText=text.toLocaleLowerCase();
+        setText(newText);
+        // props.showalert("converted to lower case","warning")
     }
     let i,j;
     const handleOnChange=(event)=>{
@@ -31,7 +40,11 @@ export default function TextForm(props) {
                 <label htmlFor="exampleFormControlTextarea1" className="form-label"><h2>{props.heading}</h2></label>
                 <textarea className="form-control" value={text} style={{backgroundColor:props.mode==='dark'?'#042743':'white',color:props.mode==='dark'?'white':'black'}} onChange={handleOnChange} id="exampleFormControlTextarea1" rows="8"></textarea>
                 </div>
-                <button className="btn btn-warning" onClick={handleUpClick}>Convert to Upper Case</button>
+                <button className="btn btn-warning mx-2" onClick={handleUpClick}>Convert to Upper Case</button>
+                <button className="btn btn-warning mx-2" onClick={handleLoClick}>Convert to Lower Case</button>
+                <button className="btn btn-warning mx-2" onClick={handleUpClick}>Clear Text</button>
+                <button className="btn btn-warning mx-2" onClick={props.notify}>Copy Text</button>
+                <button className="btn btn-warning mx-2" onClick={handleUpClick}>Remove extra spaces</button>
         </div>
         <div className="container" style={{color:props.mode==='light'?'black':'white',border:`2px solid ${props.mode==='light'?'black':'white'}`}}>
             <h1>Text Summary</h1>
