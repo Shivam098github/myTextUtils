@@ -8,17 +8,33 @@ export default function TextForm(props) {
     // setText('No input');
     const handleUpClick=()=>{
         // console.log(text);
-        props.settText("Converted to Upper Case")
-        props.notify()
+        props.changeNoti("Converted to Upper Case")
+        // props.notify()
         let newText=text.toUpperCase();
         setText(newText);
-        // props.showalert("converted to uppercase","danger")
-        // props.notify
+        
     }
     const handleLoClick=()=>{
         let newText=text.toLocaleLowerCase();
         setText(newText);
+        props.changeNoti('Converted to Lower Case')
         // props.showalert("converted to lower case","warning")
+    }
+    const clearText=()=>{
+        setText('')
+        props.changeNoti('Text Cleared')
+    }
+    const copyText=()=>{
+        let text=document.getElementById("exampleFormControlTextarea1")
+        text.select();
+        navigator.clipboard.writeText(text.value)
+        props.changeNoti("Text Copied")
+        // props.changeNoti('Text Copied')
+    }
+    const removeExtraSpaces=()=>{
+        let newText=text.split(/[ ]+/g)
+        setText(newText.join(" "))
+        props.changeNoti('Extra Spaces Removed')
     }
     let i,j;
     const handleOnChange=(event)=>{
@@ -42,9 +58,9 @@ export default function TextForm(props) {
                 </div>
                 <button className="btn btn-warning mx-2" onClick={handleUpClick}>Convert to Upper Case</button>
                 <button className="btn btn-warning mx-2" onClick={handleLoClick}>Convert to Lower Case</button>
-                <button className="btn btn-warning mx-2" onClick={handleUpClick}>Clear Text</button>
-                <button className="btn btn-warning mx-2" onClick={props.notify}>Copy Text</button>
-                <button className="btn btn-warning mx-2" onClick={handleUpClick}>Remove extra spaces</button>
+                <button className="btn btn-warning mx-2" onClick={clearText}>Clear Text</button>
+                <button className="btn btn-warning mx-2" onClick={copyText}>Copy Text</button>
+                <button className="btn btn-warning mx-2" onClick={removeExtraSpaces}>Remove extra spaces</button>
         </div>
         <div className="container" style={{color:props.mode==='light'?'black':'white',border:`2px solid ${props.mode==='light'?'black':'white'}`}}>
             <h1>Text Summary</h1>

@@ -15,15 +15,25 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const [tText, settText] = useState('Notification')
+  
   const [mode, setMode] = useState('light')
   const [alert, setAlert] = useState(null)
-  const notify = () => toast.success(tText);
-  // const changeNoti = (msg) => {
-  //   settText(msg)
-  //   notify()
-  // }
+  // const [tText, settText] = useState('')
+  const changeNoti = (msg) => {
+    
+    
+    // settText(msg);
 
+    // console.log(msg)
+    // console.log(tText)
+    notify()
+    // console.log(tText)
+    function notify() {
+      return toast.success(msg);
+    }
+  }
+  
+  
   
   const showAlert = (msg, type) => {
     setAlert({
@@ -31,19 +41,18 @@ function App() {
       type: type
     }
     )
-    setTimeout(() => {
-      setAlert(null)
-    }, 2000);
+    
   }
   const toggleMode = () => {
     if (mode === 'light') {
       setMode('dark')
       document.body.style.backgroundColor = 'black'
-
+      changeNoti("Dark Mode Enabled")
     }
     else {
       setMode('light')
       document.body.style.backgroundColor = 'white'
+      changeNoti("Light Mode Enabled")
     }
   }
   return (
@@ -57,7 +66,7 @@ function App() {
             <About />
           </Route>
           <Route path="/">
-            <TextForm settText={settText} notify={notify} showalert={showAlert} heading="Enter the text to analyze" mode={mode} />
+            <TextForm changeNoti={changeNoti} showalert={showAlert} heading="Enter the text to analyze" mode={mode} />
           </Route>
 
         </Switch>
